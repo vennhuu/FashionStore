@@ -1,5 +1,7 @@
 package spring.ClothesShop.Domain;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,6 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import spring.ClothesShop.Service.validation.StrongPassword;
 
 @Entity
 @Table(name="users")
@@ -16,12 +21,18 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id ;
 
+    @NotNull
     private String username ; 
 
+    @NotNull
     private String fullName ;
 
+    @NotNull
+    @Email(message = "Email không hợp lệ" , regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email ;
 
+    @NotNull
+    @StrongPassword
     private String password ;
 
     private String address ; 

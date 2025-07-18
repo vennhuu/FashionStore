@@ -1,10 +1,23 @@
 package spring.ClothesShop.Domain.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
+import spring.ClothesShop.Service.validation.RegisterChecked;
+
+@RegisterChecked
 public class RegisterDTO {
-    private String firstName ; 
-    private String lastName ; 
-    private String email ;
+
+    @Size(min = 1, message = "Họ phải có tối thiểu 1 kí tự")
+    private String firstName;
+
+    @Size(min = 1 , message = "Tên phải có ít nhất 1 kí tự")
+    private String lastName;
+
+    @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    private String email;
     private String username ;
+
+    @Size(min = 6, message = "Mật khẩu phải có tối thiểu 6 kí tự")
     private String password ; 
     private String confirmPassword ;
 

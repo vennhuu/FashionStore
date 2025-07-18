@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.Valid;
 import spring.ClothesShop.Domain.User;
 import spring.ClothesShop.Service.UploadService;
 import spring.ClothesShop.Service.UserService;
@@ -41,7 +43,11 @@ public class UserController {
     }
     
     @PostMapping("/admin/user/create")
-    public String postCreateUser( Model model , @ModelAttribute("newUser") User user , @RequestParam("springFile") MultipartFile file) {
+    public String postCreateUser( Model model , @Valid @ModelAttribute("newUser") User user , BindingResult result, @RequestParam("springFile") MultipartFile file) {
+        
+        if ( result.hasErrors()) {
+            return "/admin/user/create" ;
+        }
         
         String avatar = this.uploadService.upLoadFile(file , "avatar") ;
         user.setAvatar(avatar);

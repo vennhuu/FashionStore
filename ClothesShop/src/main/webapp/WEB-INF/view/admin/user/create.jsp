@@ -88,6 +88,7 @@
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label">Email</label>
                                                         <form:input type="email" path="email" class="form-control" />
+                                                        <form:errors path="email" cssClass="text-danger" />
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label">Biệt danh</label>
@@ -101,6 +102,7 @@
                                                         <label class="form-label">Mật khẩu</label>
                                                         <form:input type="password" path="password"
                                                             class="form-control" />
+                                                        <form:errors path="password" cssClass="text-danger" />
                                                     </div>
 
                                                     <div class="col-md-6 mb-3">

@@ -47,8 +47,7 @@
                                                 <div class="card-body">
                                                     <div class="pt-4 pb-2">
                                                         <h5 class="card-title text-center pb-0 fs-4">Tạo tài khoản</h5>
-                                                        <p class="text-center small">Enter your personal details to
-                                                            create account</p>
+                                                        <p class="text-center small">Nhập thông tin để tạo tài khoản</p>
                                                     </div>
                                                     <form:form class="row g-3 needs-validation" novalidate="novalidate"
                                                         method="post" action="/register" modelAttribute="registerDTO">
@@ -57,18 +56,21 @@
                                                             <label for="firstName" class="form-label">Họ</label>
                                                             <form:input class="form-control" type="text"
                                                                 path="firstName" />
+                                                            <form:errors path="firstName" cssClass="text-danger" />
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label for="lastName" class="form-label">Tên</label>
                                                             <form:input type="text" class="form-control"
                                                                 path="lastName" />
+                                                            <form:errors path="lastName" cssClass="text-danger" />
                                                         </div>
 
                                                         <div class="col-12">
                                                             <label for="yourEmail" class="form-label">Email</label>
                                                             <form:input type="email" class="form-control"
                                                                 path="email" />
+                                                            <form:errors path="email" cssClass="text-danger" />
                                                         </div>
 
                                                         <div class="col-12">
@@ -83,23 +85,25 @@
                                                                 khẩu</label>
                                                             <form:input type="password" class="form-control"
                                                                 path="password" />
-
+                                                            <form:errors path="password" cssClass="text-danger" />
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="confirmPassword" class="form-label">Xác nhận mật
                                                                 khẩu</label>
                                                             <form:input type="password" class="form-control"
                                                                 path="confirmPassword" />
+                                                            <form:errors path="confirmPassword"
+                                                                cssClass="text-danger" />
 
                                                         </div>
                                                         <div class="col-12">
-                                                            <button class="btn btn-primary w-100" type="submit">Create
-                                                                Account</button>
+                                                            <button class="btn btn-primary w-100" type="submit">Tạo tài
+                                                                khoản</button>
                                                         </div>
                                                     </form:form>
                                                     <div class="col-12 text-center">
-                                                        <p class="small mb-0">Already have an account? <a
-                                                                href="/login">Log in</a></p>
+                                                        <p class="small mb-0">Đã có tài khoản? <a href="/login">Đăng
+                                                                nhập</a></p>
                                                     </div>
                                                 </div>
                                             </div>

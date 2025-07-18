@@ -5,23 +5,29 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.validation.Valid;
 import spring.ClothesShop.Domain.Product;
+import spring.ClothesShop.Domain.User;
 import spring.ClothesShop.Domain.dto.RegisterDTO;
 import spring.ClothesShop.Service.ProductService;
+import spring.ClothesShop.Service.UserService;
 
 
 @Controller
 public class HomePageController {
     private final ProductService productService ;
+    private final UserService userService ;
 
     
-    public HomePageController(ProductService productService) {
+    public HomePageController(ProductService productService , UserService userService ) {
         this.productService = productService;
+        this.userService = userService ;
     }
 
     @GetMapping("/")
@@ -60,7 +66,15 @@ public class HomePageController {
     }
 
     @PostMapping("/register")
-    public String postRegisterPage(@ModelAttribute("registerDTO") RegisterDTO registerDTO) {
+    public String postRegisterPage(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO , BindingResult result) {
+
+        if ( result.hasErrors()) {
+            return "/client/auth/register" ;
+        }
+        
+        User user = this.userService.registerDTOtoUser(registerDTO) ;
+        user.setRole(this.userService.getRoleByName("USER"));
+        this.userService.saveUser(user) ;
         return "redirect:/login" ;
     }
 }

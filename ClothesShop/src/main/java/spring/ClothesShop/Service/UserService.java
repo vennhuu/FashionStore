@@ -44,8 +44,14 @@ public class UserService {
 
     public User registerDTOtoUser(RegisterDTO registerDTO) {
         User user = new User() ;
-        user.setFullName(registerDTO.getFirstName() + registerDTO.getLastName());
+        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         user.setEmail(registerDTO.getEmail());
+        user.setPassword(registerDTO.getPassword());
+        user.setUsername(registerDTO.getUsername());
         return user ;
+    }
+
+    public boolean checkExistEmail ( String email ) {
+        return this.userRepository.existsByEmail(email) ;
     }
 }

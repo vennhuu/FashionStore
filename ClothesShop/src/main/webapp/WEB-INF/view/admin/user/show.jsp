@@ -107,6 +107,10 @@
                                                                             class="btn btn-primary"> Xem </a>
                                                                         <form action="/admin/user/delete/${user.id}"
                                                                             method="post" style="display:inline;">
+                                                                            <input type="hidden"
+                                                                                name="${_csrf.parameterName}"
+                                                                                value="${_csrf.token}" />
+
                                                                             <button type="submit" class="btn btn-danger"
                                                                                 onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?')">Xóa</button>
                                                                         </form>

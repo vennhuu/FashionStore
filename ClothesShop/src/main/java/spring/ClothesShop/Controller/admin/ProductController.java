@@ -32,14 +32,14 @@ public class ProductController {
     public String getProductPage(Model model) {
         List<Product> listProduct =  this.productService.getAllProduct() ;
         model.addAttribute("products" , listProduct) ;
-        return "/admin/product/show" ;
+        return "admin/product/show" ;
     }
 
     @GetMapping("/admin/product/create")
     public String getCreateProduct(Model model) {
         Product newProduct = new Product() ;
         model.addAttribute("newProduct" , newProduct) ;
-        return "/admin/product/create" ;
+        return "admin/product/create" ;
     }
 
     @PostMapping("/admin/product/create") 
@@ -57,9 +57,9 @@ public class ProductController {
             model.addAttribute("detailProduct" , pro.get()) ;
         }
         else {
-            return "/client/auth/404" ;
+            return "client/auth/404" ;
         }
-        return "/admin/product/detail";
+        return "admin/product/detail";
     }
 
     @PostMapping("/admin/product/update")

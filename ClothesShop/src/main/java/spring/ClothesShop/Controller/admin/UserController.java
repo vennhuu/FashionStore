@@ -2,6 +2,7 @@ package spring.ClothesShop.Controller.admin;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,36 +23,41 @@ import spring.ClothesShop.Service.UserService;
 public class UserController {
     private final UserService userService ;
     private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder ;
     
-    public UserController(UserService userService , UploadService uploadService ) {
+    public UserController(UserService userService , UploadService uploadService , PasswordEncoder passwordEncoder  ) {
         this.userService = userService;
         this.uploadService = uploadService ;
+        this.passwordEncoder = passwordEncoder ;
     }
 
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> listUsers =this.userService.getAllUsers() ;
         model.addAttribute("listUsers" , listUsers) ;
-        return "/admin/user/show";
+        return "admin/user/show";
     }
     
     @GetMapping("/admin/user/create")
     public String getCreateUserPage( Model model ) {
         model.addAttribute("newUser" , new User()) ;
 
-        return "/admin/user/create";
+        return "admin/user/create";
     }
     
     @PostMapping("/admin/user/create")
     public String postCreateUser( Model model , @Valid @ModelAttribute("newUser") User user , BindingResult result, @RequestParam("springFile") MultipartFile file) {
         
         if ( result.hasErrors()) {
-            return "/admin/user/create" ;
+            return "admin/user/create" ;
         }
         
+        String hashPassword = this.passwordEncoder.encode(user.getPassword()) ;
         String avatar = this.uploadService.upLoadFile(file , "avatar") ;
         user.setAvatar(avatar);
+        user.setPassword(hashPassword);
         user.setRole(this.userService.getRoleByName(user.getRole().getName()));
+        
         this.userService.saveUser(user) ;
         return "redirect:/admin/user";
     }
@@ -60,7 +66,7 @@ public class UserController {
     public String getDetailUser(@PathVariable long id , Model model) {
         User userDetail = this.userService.findUserById(id) ;
         model.addAttribute("userDetail" , userDetail) ;
-        return "/admin/user/detail";
+        return "admin/user/detail";
     }
     
     @PostMapping("/admin/user/update")

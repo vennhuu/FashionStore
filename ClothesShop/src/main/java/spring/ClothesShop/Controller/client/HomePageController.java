@@ -3,6 +3,7 @@ package spring.ClothesShop.Controller.client;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,23 +24,25 @@ import spring.ClothesShop.Service.UserService;
 public class HomePageController {
     private final ProductService productService ;
     private final UserService userService ;
+    private final PasswordEncoder passwordEncoder ;
 
     
-    public HomePageController(ProductService productService , UserService userService ) {
+    public HomePageController(ProductService productService , UserService userService , PasswordEncoder passwordEncoder ) {
         this.productService = productService;
         this.userService = userService ;
+        this.passwordEncoder = passwordEncoder ;
     }
 
     @GetMapping("/")
     public String getHomePage(Model model) {
         List<Product> listProduct = this.productService.getAllProduct() ;
         model.addAttribute("listProduct" , listProduct) ;
-        return "/client/homepage/show" ;
+        return "client/homepage/show" ;
     }
 
     @GetMapping("/404")
     public String getErrorPage() {
-        return "/client/auth/404";
+        return "client/auth/404";
     }
     
     @GetMapping("/product/{id}")
@@ -51,29 +54,33 @@ public class HomePageController {
             List<Product> relatedBrandProduct = this.productService.findRelatedProduct(product.getBrand() , product.getId()) ;
             model.addAttribute("relatedProducts", relatedBrandProduct) ;
         }
-        return "/client/product/detail" ;
+        return "client/product/detail" ;
     }
 
     @GetMapping("/login")
     public String getLoginPage() {
-        return "/client/auth/login" ;
+        return "client/auth/login" ;
     }
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerDTO" , new RegisterDTO()) ;
-        return "/client/auth/register" ;
+        return "client/auth/register" ;
     }
 
     @PostMapping("/register")
     public String postRegisterPage(@Valid @ModelAttribute("registerDTO") RegisterDTO registerDTO , BindingResult result) {
 
         if ( result.hasErrors()) {
-            return "/client/auth/register" ;
+            return "client/auth/register" ;
         }
         
         User user = this.userService.registerDTOtoUser(registerDTO) ;
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+
         user.setRole(this.userService.getRoleByName("USER"));
+        user.setPassword(hashPassword);
+
         this.userService.saveUser(user) ;
         return "redirect:/login" ;
     }

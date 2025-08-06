@@ -5,9 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import spring.ClothesShop.Domain.User;
 
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
     User getUserById (long id) ;
 
     boolean existsByEmail ( String email ) ;
+
+    User getUserByEmail(String email);
 }

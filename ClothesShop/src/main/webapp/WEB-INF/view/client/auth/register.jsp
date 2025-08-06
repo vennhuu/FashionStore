@@ -52,48 +52,80 @@
                                                     <form:form class="row g-3 needs-validation" novalidate="novalidate"
                                                         method="post" action="/register" modelAttribute="registerDTO">
 
+                                                        <c:set var="errorFirstName">
+                                                            <form:errors path="firstName" cssClass="invalid-feedback" />
+                                                        </c:set>
+
+                                                        <c:set var="errorLastName">
+                                                            <form:errors path="lastName" cssClass="invalid-feedback" />
+                                                        </c:set>
+
+                                                        <c:set var="errorEmail">
+                                                            <form:errors path="email" cssClass="invalid-feedback" />
+                                                        </c:set>
+
+                                                        <c:set var="errorUsername">
+                                                            <form:errors path="username" cssClass="invalid-feedback" />
+                                                        </c:set>
+
+                                                        <c:set var="errorPassword">
+                                                            <form:errors path="password" cssClass="invalid-feedback" />
+                                                        </c:set>
+
+                                                        <c:set var="errorConfirmPassword">
+                                                            <form:errors path="confirmPassword"
+                                                                cssClass="invalid-feedback" />
+                                                        </c:set>
+
                                                         <div class="col-md-6">
                                                             <label for="firstName" class="form-label">Họ</label>
-                                                            <form:input class="form-control" type="text"
-                                                                path="firstName" />
-                                                            <form:errors path="firstName" cssClass="text-danger" />
+                                                            <form:input
+                                                                cssClass="form-control ${not empty errorFirstName ? 'is-invalid' : ''}"
+                                                                type="text" path="firstName" />
+                                                            ${errorFirstName}
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <label for="lastName" class="form-label">Tên</label>
-                                                            <form:input type="text" class="form-control"
+                                                            <form:input type="text"
+                                                                cssClass="form-control ${not empty errorLastName ? 'is-invalid' : ''}"
                                                                 path="lastName" />
-                                                            <form:errors path="lastName" cssClass="text-danger" />
+                                                            ${errorLastName}
                                                         </div>
 
                                                         <div class="col-12">
                                                             <label for="yourEmail" class="form-label">Email</label>
-                                                            <form:input type="email" class="form-control"
+                                                            <form:input type="email"
+                                                                cssClass="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
                                                                 path="email" />
-                                                            <form:errors path="email" cssClass="text-danger" />
+                                                            ${errorEmail}
                                                         </div>
 
                                                         <div class="col-12">
                                                             <label for="yourUsername" class="form-label">Biệt
                                                                 danh</label>
-                                                            <form:input type="text" class="form-control"
+                                                            <form:input type="text"
+                                                                cssClass="form-control ${not empty errorUsername ? 'is-invalid' : ''}"
                                                                 path="username" />
-
+                                                            ${errorUsername}
                                                         </div>
+
                                                         <div class="col-md-6">
                                                             <label for="yourPassword" class="form-label">Mật
                                                                 khẩu</label>
-                                                            <form:input type="password" class="form-control"
+                                                            <form:input type="password"
+                                                                cssClass="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
                                                                 path="password" />
-                                                            <form:errors path="password" cssClass="text-danger" />
+                                                            ${errorPassword}
                                                         </div>
+
                                                         <div class="col-md-6">
                                                             <label for="confirmPassword" class="form-label">Xác nhận mật
                                                                 khẩu</label>
-                                                            <form:input type="password" class="form-control"
+                                                            <form:input type="password"
+                                                                cssClass="form-control ${not empty errorConfirmPassword ? 'is-invalid' : ''}"
                                                                 path="confirmPassword" />
-                                                            <form:errors path="confirmPassword"
-                                                                cssClass="text-danger" />
+                                                            ${errorConfirmPassword}
 
                                                         </div>
                                                         <div class="col-12">

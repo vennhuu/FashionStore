@@ -8,7 +8,7 @@ public class StrongPasswordValidator implements ConstraintValidator<StrongPasswo
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         // TODO Auto-generated method stub
-        return value.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*()]).{8,}$");
+        return value.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*()]).{6,}$");
     }
     
 }

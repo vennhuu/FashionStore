@@ -15,7 +15,7 @@ import jakarta.validation.Payload;
 @Documented
 public @interface StrongPassword {
     
-    String message() default "Phải có 8 kí tự , 1 chữ số , 1 in hoa , 1 kí tự đặc biệt" ;
+    String message() default "Phải có 6 kí tự , 1 chữ số , 1 in hoa , 1 kí tự đặc biệt" ;
 
     Class<?>[] groups() default {};
 

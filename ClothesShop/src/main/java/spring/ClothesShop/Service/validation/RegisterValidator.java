@@ -1,10 +1,13 @@
 package spring.ClothesShop.Service.validation;
 
+import org.springframework.stereotype.Service;
+
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import spring.ClothesShop.Domain.dto.RegisterDTO;
 import spring.ClothesShop.Service.UserService;
 
+@Service
 public class RegisterValidator implements ConstraintValidator<RegisterChecked, RegisterDTO>{
 
     public final UserService userService ;
